@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .upload {
+            max-width: 1500px;
+            margin: auto;
+            border-radius: 10px;
+            background-color: #88ceee;
+            padding: 20px;
+        }
+
+        .container {
+            width: 1850px;
+            background-clip: content-box;
+            text-indent: 20px;
+        }
+
+        .interpretation {
+            max-width: 1500px;
+            margin: auto;
+            border-radius: 10px;
+            background-color: #88ceee;
+            padding: 20px;
+        }
+
+        .empty {
+            padding: 20px;
+        }
+
+        h1 {
+            display: block;
+            font-size: 4em;
+            margin-top: 0.67em;
+            margin-bottom: 0.67em;
+            margin-left: 0;
+            margin-right: 0;
+            font-weight: bold;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #a9d8e0;
+            color: #FDF8F5;
+            padding: 14px 20px;
+            border: 2px solid;
+            border-radius: 10px;
+            margin-left: 20px;
+        }
+
+        input[type=submit]:hover {
+            background-color: grey;
+        }
+
+        input[type=file],
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #FDF8F5;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .upload_box {
+            margin-left: 127px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <title>Tamil Sign Language Interpretation</title>
+</head>
+
+<body style="background-color: #6098e2;">
+    <h1 style="width: 50%; text-align:center; margin-left: 355px;">
+        WELCOME TO TAMIL SIGN LANGUAGE INTERPRETER
+    </h1>
+    <div style="width: 50%; margin: 0 auto;" class="container">
+        <div style="text-align: center" class="upload">
+            <div class="header">
+                <h3 style="color: #4F4846" class="text-muted">Upload Your Images/Video</h3>
+            </div>
+            <hr />
+            <div>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="upload_box" >
+                            <input style="background-color: #a9d8e0;" type="file" name="image" id="image" multiple
+                                required><br /><br />
+                            <input type="submit" value="Upload" onclick="move()">
+                        </div>
+                        <div class="col-lg-8">
+                            <img id="imagen"><br />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="empty">
+        </div>
+        <div class="interpretation">
+            {% if output %}
+            <div>
+                <h1 style="text-align: center; font-weight: bold">TAMIL Text Interpretation</h1>
+                <h4 style="text-align: center; font-weight: bold; font-style: italic; color: #4F4846">{{ output }}</h4>
+            </div>
+            {% else %}
+            <h1 style="text-align: center; font-weight: bold">TAMIL Text Interpretation</h1>
+            {% endif %}
+        </div>
+        <div class="empty">
+        </div>
+    </div>
+</body>
+
+<script>
+    function init() {
+        var inputFile = document.getElementById('image');
+        inputFile.addEventListener('change', mostrarImagen, false);
+    }
+    function mostrarImagen(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var img = document.getElementById('image');
+            img.src = event.target.result;
+            img.width = 500;
+            img.height = 500;
+        }
+        reader.readAsDataURL(file);
+    }
+    window.addEventListener('load', init, false);
+</script>
+
+</html>
